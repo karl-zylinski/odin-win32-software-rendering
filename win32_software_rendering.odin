@@ -1,7 +1,6 @@
 package game
 
 import "base:runtime"
-import "core:fmt"
 import "core:math"
 import "core:math/linalg"
 import "core:slice"
@@ -11,7 +10,6 @@ import "core:image/png"
 import "core:image"
 import win "core:sys/windows"
 
-_ :: fmt
 _ :: png
 
 Vec2 :: [2]f32
@@ -111,7 +109,7 @@ main :: proc() {
 	player_anim_texture, player_anim_texture_ok := load_texture("walk_animation.png")
 
 	if !player_anim_texture_ok {
-		fmt.println("Failed to walk_animation.png")
+		log.error("Failed to walk_animation.png")
 		return
 	}
 
