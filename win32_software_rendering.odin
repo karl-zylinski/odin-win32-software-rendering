@@ -334,7 +334,9 @@ win_proc :: proc "stdcall" (hwnd: win.HWND, msg: win.UINT, wparam: win.WPARAM, l
 	case win.WM_CREATE:
 		dc := win.GetDC(hwnd)
 
-		// Create bitmap for drawing into.
+		// Create bitmap for drawing into. For this bitmap setup I got some help
+		// from this win32 software rendering example:
+		// https://github.com/odin-lang/examples/blob/master/win32/game_of_life/game_of_life.odin
 
 		// There is a BITMAPINFO in windows API, but to make it easier to
 		// specify our palette we make our own.
