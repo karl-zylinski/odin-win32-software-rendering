@@ -248,6 +248,45 @@ draw :: proc(hwnd: win.HWND) {
 	win.EndPaint(hwnd, &ps)
 }
 
+
+// Draw rectangle onto screen by looping over pixels in the rect and setting
+// pixels on screen.
+draw_rect :: proc(r: Rect) {
+	for x in r.x..<r.x+r.w {
+		for y in r.y..<r.y+r.h {
+			idx := int(math.floor(y) * SCREEN_WIDTH) + int(math.floor(x))
+			if idx >= 0 && idx < len(screen_buffer) {
+				// 1 means the second color in PALETTE
+				screen_buffer[idx] = 1
+			}
+		}
+	}
+}
+
+// Draws texture `t` on screen. `src` is the rectangle inside `t` to pick stuff
+// from. `pos` is where on screen to draw it. `flip_x` flips the texture.
+draw_texture :: proc(t: Texture, src: Rect, pos: Vec2, flip_x: bool) {
+	for x in 0..<src.w {
+		for y in 0..<src.h {
+			sx := x + src.x
+			sy := y + src.y
+			src_idx := floor_to_int(sy) * t.w + (flip_x ? floor_to_int(src.w - x + src.x) - 1 : floor_to_int(sx))
+			
+			if src_idx >= 0 && src_idx < len(t.data) && t.data[src_idx] {
+				xx := floor_to_int(pos.x) + floor_to_int(x)
+				yy := floor_to_int(pos.y) + floor_to_int(y)
+
+				idx := yy * SCREEN_WIDTH + xx
+
+				if idx >= 0 && idx < len(screen_buffer) {
+					// 1 means the second color in PALETTE
+					screen_buffer[idx] = 1
+				}
+			}
+		}
+	}
+}
+
 win_proc :: proc "stdcall" (hwnd: win.HWND, msg: win.UINT, wparam: win.WPARAM, lparam: win.LPARAM) -> win.LRESULT {
 	context = runtime.default_context()
 	switch(msg) {
@@ -330,44 +369,6 @@ win_proc :: proc "stdcall" (hwnd: win.HWND, msg: win.UINT, wparam: win.WPARAM, l
 	}
 
 	return win.DefWindowProcW(hwnd, msg, wparam, lparam)
-}
-
-// Draw rectangle onto screen by looping over pixels in the rect and setting
-// pixels on screen.
-draw_rect :: proc(r: Rect) {
-	for x in r.x..<r.x+r.w {
-		for y in r.y..<r.y+r.h {
-			idx := int(math.floor(y) * SCREEN_WIDTH) + int(math.floor(x))
-			if idx >= 0 && idx < len(screen_buffer) {
-				// 1 means the second color in PALETTE
-				screen_buffer[idx] = 1
-			}
-		}
-	}
-}
-
-// Draws texture `t` on screen. `src` is the rectangle inside `t` to pick stuff
-// from. `pos` is where on screen to draw it. `flip_x` flips the texture.
-draw_texture :: proc(t: Texture, src: Rect, pos: Vec2, flip_x: bool) {
-	for x in 0..<src.w {
-		for y in 0..<src.h {
-			sx := x + src.x
-			sy := y + src.y
-			src_idx := floor_to_int(sy) * t.w + (flip_x ? floor_to_int(src.w - x + src.x) - 1 : floor_to_int(sx))
-			
-			if src_idx >= 0 && src_idx < len(t.data) && t.data[src_idx] {
-				xx := floor_to_int(pos.x) + floor_to_int(x)
-				yy := floor_to_int(pos.y) + floor_to_int(y)
-
-				idx := yy * SCREEN_WIDTH + xx
-
-				if idx >= 0 && idx < len(screen_buffer) {
-					// 1 means the second color in PALETTE
-					screen_buffer[idx] = 1
-				}
-			}
-		}
-	}
 }
 
 floor_to_int :: proc(v: f32) -> int {
