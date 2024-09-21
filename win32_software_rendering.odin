@@ -1,4 +1,4 @@
-package game
+package win32_software_rendering
 
 import "base:runtime"
 import "core:math"
