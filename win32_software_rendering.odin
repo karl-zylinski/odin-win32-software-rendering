@@ -91,7 +91,7 @@ main :: proc() {
 
 	// Create window, note that we reuse the class name to make this window
 	// a window of that type. Other than that we mostly provide a window title,
-	// a window size and a position. WS_OVERLAPPEDWINDOW makes this "normal
+	// a window size and a position. WS_OVERLAPPEDWINDOW makes this a "normal
 	// looking window" and WS_VISIBLE makes the window not hidden. See
 	// https://learn.microsoft.com/en-us/windows/win32/winmsg/window-styles for
 	// all styles.
@@ -121,7 +121,7 @@ main :: proc() {
 	// Use built in Odin high resolution timer for tracking frame time.
 	prev_time := time.tick_now()
 
-	for	run {
+	for run {
 		// Calculate frame time: the time from previous to current frame
 		dt := f32(time.duration_seconds(time.tick_lap_time(&prev_time)))
 
