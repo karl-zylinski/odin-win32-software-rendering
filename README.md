@@ -1,4 +1,4 @@
-# Win32 software rendering in Odin
+# Win32 software rendering in [Odin](https://github.com/odin-lang/Odin)
 
 ![software_render](https://github.com/user-attachments/assets/68651631-e409-47b3-b1d3-dded7894a21a)
 
