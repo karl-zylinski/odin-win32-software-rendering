@@ -9,7 +9,7 @@
 	[
 		{
 			"working_dir": "$project_path",
-			"name": "sublime_odin_template",
+			"name": "Odin Win32 Software Rendering Example",
 			"shell_cmd": "odin run . -debug -strict-style -vet",
 			"file_regex": "^(.+)\\(([0-9]+):([0-9]+)\\) (.+)$",
 		}
