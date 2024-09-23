@@ -10,6 +10,4 @@ Does some simple video game stuff where an animation is drawn using a texture lo
 
 Compile and run by using `odin run .` or by using the built in Sublime Text project file.
 
-By Karl Zylinski, http://zylinski.se -- Support me at https://www.patreon.com/karl_zylinski
-
 For the bitmap setup I got some help from this "game of life" software rendering example: https://github.com/odin-lang/examples/blob/master/win32/game_of_life/game_of_life.odin
